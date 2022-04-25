@@ -1,3 +1,6 @@
-<h4>{{ word }}</h4>
-<h4>{{ word.noun.definition }}</h4>
-<h4>{{ word.verb.definition }}</h4>
+<h1>{{ word }}</h1>
+
+{% for part in parts_of_speech %}
+    <strong>{{ part }}</strong>
+    <p>{{ part.definition }}</p>
+{% endfor %}

@@ -1,18 +1,29 @@
-{# Load the tag library #}
-{% load bootstrap5 %}
+{% load static %}
+{% load crispy_forms_tags %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+<link rel="stylesheet" href="{% static 'dictionary/bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
+<form method="post" class="bootstrap5" id="form">
+  <div class="mb-3">
+    {{ form.word|as_crispy_field }}
+  </div>
 
-{# Display a form #}
-<form method="post" class="form">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">Submit</button>
-  {% endbuttons %}
+  {% for field in form %}
+    {% if not forloop.first %}
+      <button type="button" class="btn btn-secondary" onclick="addInput('{{ field.id_for_label }}')">{{ field }}</button>
+      <div class="mb-3" id="{{ field.id_for_label}}">
+        {{ field|as_crispy_field }}
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<script>
+  function addInput(field) {
+    console.log(field);
+    var div = document.getElementById(field);
+    div.hidden = false;
+  }
+</script>
