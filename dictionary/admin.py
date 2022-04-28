@@ -1,3 +1,4 @@
+from dictionary.models import Word
 from django.contrib import admin
 
-# Register your models here.
+admin.site.register(Word)

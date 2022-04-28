@@ -1,18 +1,20 @@
-{# Load the tag library #}
-{% load bootstrap5 %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% block title %}<title>Update definition</title>{% endblock %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
+{% block content %}
+	<div id="buttons" style="padding-bottom: 1em;">
+		{% for field in form.fields %}
+			{% if not forloop.first %}
+				<button class="btn btn-secondary" id="btn_{{ field }}" onclick="addInput('{{ field }}')" type="button">{{ field }}</button>
+			{% endif %}
+		{% endfor %}
+	</div>
 
-{# Display a form #}
-<form method="post" class="form">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">Submit</button>
-  {% endbuttons %}
-</form>
+	<div>
+		<form method="post">
+			{% crispy form %}
+		</form>
+	</div>
+{% endblock %}

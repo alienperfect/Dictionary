@@ -1,6 +1,12 @@
-<h1>{{ word }}</h1>
+{% extends "base.html" %}
 
-{% for part in parts_of_speech %}
-    <strong>{{ part }}</strong>
-    <p>{{ part.definition }}</p>
-{% endfor %}
+{% block title %}<title>{{ word }}</title>{% endblock %}
+
+{% block content %}
+    <h1>{{ word }}</h1>
+
+    {% for part in parts_of_speech %}
+        <strong>{{ part }}</strong>
+        <p>{{ part.definition }}</p>
+    {% endfor %}
+{% endblock %}

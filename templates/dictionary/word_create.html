@@ -1,29 +1,24 @@
-{% load static %}
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-<link rel="stylesheet" href="{% static 'dictionary/bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">
+{% block title %}<title>New word</title>{% endblock %}
 
-<form method="post" class="bootstrap5" id="form">
-  <div class="mb-3">
-    {{ form.word|as_crispy_field }}
-  </div>
+{% block content %}
+	<div class="alert alert-success" role="alert">
+		Successfully created definition.
+	</div>
 
-  {% for field in form %}
-    {% if not forloop.first %}
-      <button type="button" class="btn btn-secondary" onclick="addInput('{{ field.id_for_label }}')">{{ field }}</button>
-      <div class="mb-3" id="{{ field.id_for_label}}">
-        {{ field|as_crispy_field }}
-      </div>
-    {% endif %}
-  {% endfor %}
+	<div id="buttons" style="padding-bottom: 1em;">
+		{% for field in form.fields %}
+			{% if not forloop.first %}
+				<button class="btn btn-secondary" id="btn_{{ field }}" onclick="addInput('{{ field }}')" type="button">{{ field }}</button>
+			{% endif %}
+		{% endfor %}
+	</div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<script>
-  function addInput(field) {
-    console.log(field);
-    var div = document.getElementById(field);
-    div.hidden = false;
-  }
-</script>
+	<div>
+		<form method="post">
+			{% crispy form %}
+		</form>
+	</div>
+{% endblock %}
