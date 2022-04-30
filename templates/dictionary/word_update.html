@@ -17,4 +17,22 @@
 			{% crispy form %}
 		</form>
 	</div>
+
+	<script>
+		var url = "{% url 'api:word' word=word %}"
+
+		fetch(url, {
+			method: 'GET',
+			headers: {
+				'X-Requested-With': 'XMLHttpRequest'
+			}
+		})
+		.then(resp => resp.json())
+		.then(function(data){
+			for (let i = 0; i < data.length; i++){
+				var field = data[i];
+				addInput(field);
+			}
+		});
+	</script>
 {% endblock %}

@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'dictionary',
     'account',
     'api',
+    'rest_framework',
     'crispy_forms',
     'crispy_bootstrap5',
 ]
