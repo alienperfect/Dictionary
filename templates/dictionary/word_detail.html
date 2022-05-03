@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load dictionary_filters %}
 
 {% block title %}<title>{{ word }}</title>{% endblock %}
 
@@ -7,6 +8,6 @@
 
     {% for part in parts_of_speech %}
         <strong>{{ part }}</strong>
-        <p>{{ part.definition }}</p>
+        <p>{{ word|getattribute:part }}</p>
     {% endfor %}
 {% endblock %}

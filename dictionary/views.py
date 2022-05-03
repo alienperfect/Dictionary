@@ -25,7 +25,7 @@ class WordDetailView(DetailView):
             )
 
         word = context['word']
-        context['parts_of_speech'] = [getattr(word, part) for part in parts_of_speech if hasattr(word, part)]
+        context['parts_of_speech'] = [part for part in parts_of_speech if getattr(word, part)]
 
         return context
 
