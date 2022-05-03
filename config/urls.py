@@ -6,5 +6,4 @@ urlpatterns = [
     path('api/', include('api.urls', namespace='api')),
     path('definition/', include('dictionary.urls', namespace='dictionary')),
     #path('account/', include('account.urls')),
-    #path('api/', include('api.urls')),
 ]
