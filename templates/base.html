@@ -12,7 +12,16 @@
 
     {% block title %}<title>Document</title>{% endblock %}
 </head>
+
 <body style="padding-left: 15em; padding-right: 15em; padding-top: 1em; padding-bottom: 1em;">
+    <div class="d-flex justify-content-end">
+        {% if user.is_authenticated %}
+            {{ user.username }}
+        {% else %}
+            Not logged in
+        {% endif %}
+    </div>
+
     {% block content %}{% endblock %}
 </body>
 </html>
