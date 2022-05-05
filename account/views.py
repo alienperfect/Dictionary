@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, ListView, DetailView
+from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
 
 
 class SignUpView(CreateView):
@@ -68,3 +68,8 @@ class CollectionDetailView(DetailView):
         context['words'] = Word.objects.filter(collection=instance)
 
         return context
+
+
+class CollectionDeleteView(DeleteView):
+    model = Collection
+    success_url = reverse_lazy('account:collection-list')

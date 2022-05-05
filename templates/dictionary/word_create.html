@@ -4,10 +4,6 @@
 {% block title %}<title>New word</title>{% endblock %}
 
 {% block content %}
-	<div class="alert alert-success" role="alert">
-		Successfully created definition.
-	</div>
-
 	<div id="buttons" style="padding-bottom: 1em;">
 		{% for field in form.fields %}
 			{% if not forloop.first %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 
 
 class Word(models.Model):
@@ -19,3 +20,6 @@ class Word(models.Model):
 
     def __str__(self):
         return self.word
+
+    def get_absolute_url(self):
+        return reverse_lazy('dictionary:word-detail', kwargs={'word': self.word})

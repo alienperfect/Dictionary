@@ -1,4 +1,4 @@
-from account.views import SignUpView, CustomLoginView, CollectionListView, CollectionCreateView, CollectionUpdateView, CollectionDetailView
+from account.views import SignUpView, CustomLoginView, CollectionListView, CollectionCreateView, CollectionUpdateView, CollectionDetailView, CollectionDeleteView
 from django.contrib.auth.views import LogoutView
 from django.urls import path, reverse_lazy
 
@@ -11,4 +11,5 @@ urlpatterns = [
     path('collection/<int:pk>/update/', CollectionUpdateView.as_view(), name='collection-update'),
     path('collections/', CollectionListView.as_view(), name='collection-list'),
     path('collection/<int:pk>/', CollectionDetailView.as_view(), name='collection-detail'),
+    path('collection/<int:pk>/delete/', CollectionDeleteView.as_view(), name='collection-delete'),
 ]

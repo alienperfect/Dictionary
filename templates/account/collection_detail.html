@@ -5,8 +5,37 @@
 {% block content %}
 	<div>
         <h5>{{ collection.name }}</h5>
+
+        <div class="d-flex justify-content-end">
+            <div style="padding-left: 0.25em; padding-right: 0.25em;">
+                <button class="btn btn-primary">Edit</button>
+            </div>
+            <div style="padding-left: 0.25em; padding-right: 0.25em;">
+                <button class="btn btn-danger" onclick="deleteCollection()">Delete</button>
+            </div>
+        </div>
+
         {% for word in words %}
-            <p>{{ word.word }}</p>
+            <p><a href="{{ word.get_absolute_url }}">{{ word.word }}</a></p>
         {% endfor %}
 	</div>
+
+    <script>
+        var url = "{% url 'api:collection' pk=collection.pk %}";
+        var redirect_url = "{% url 'account:collection-list' %}"
+
+        function deleteCollection(){
+            if (window.confirm("Do you really want to delete the collection forever?")){
+                fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+				        'X-CSRFTOKEN': '{{ csrf_token }}'
+			        }
+                })
+                .then(function(){
+                    window.location.replace(redirect_url)
+                });
+            }
+        }
+    </script>
 {% endblock %}

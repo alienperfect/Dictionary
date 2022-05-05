@@ -1,7 +1,8 @@
-from api.views import ApiWord
+from api.views import WordAPIView, CollectionAPIView
 from django.urls import path
 
 app_name = 'api'
 urlpatterns = [
-    path('word/<str:word>/', ApiWord.as_view(), name='word'),
+    path('word/<str:word>/', WordAPIView.as_view(), name='word'),
+    path('collection/<int:pk>/', CollectionAPIView.as_view(), name='collection'),
 ]

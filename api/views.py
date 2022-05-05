@@ -1,11 +1,12 @@
-import itertools
-from api.serializers import WordSerializer
+from account.models import Collection
+from api.serializers import WordSerializer, CollectionSerializer
 from dictionary.models import Word
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
 
 
-class ApiWord(APIView):
+class WordAPIView(APIView):
     def get(self, request, format=None, **kwargs):
         word = kwargs.get('word', '')
         instance = Word.objects.get(word=word)
@@ -18,3 +19,17 @@ class ApiWord(APIView):
             return Response(resp[2::])
 
         return Response(data)
+
+
+class CollectionAPIView(APIView):
+    def get(self, request, pk, format=None, **kwargs):
+        instance = Collection.objects.get(pk=pk)
+        serializer = CollectionSerializer(instance)
+
+        return Response(serializer.data)
+
+    def delete(self, request, pk, format=None, **kwargs):
+        instance = Collection.objects.get(pk=pk)
+        instance.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
