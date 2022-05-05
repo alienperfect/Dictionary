@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Collections</title>{% endblock %}
+
+{% block content %}
+	<div>
+        {% for c in collections %}
+            <h5><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></h5>
+            <p>Created on: {{ c.created }}</p>
+        {% endfor %}
+	</div>
+{% endblock %}

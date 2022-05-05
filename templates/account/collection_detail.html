@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}<title>{{ object.name }}</title>{% endblock %}
+
+{% block content %}
+	<div>
+        <h5>{{ collection.name }}</h5>
+        {% for word in words %}
+            <p>{{ word.word }}</p>
+        {% endfor %}
+	</div>
+{% endblock %}
