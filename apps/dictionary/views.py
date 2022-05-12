@@ -12,27 +12,10 @@ class WordDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        parts_of_speech = (
-            'adjective',
-            'adverb',
-            'conjunction',
-            'interjection',
-            'noun',
-            'preposition',
-            'pronoun',
-            'verb'
-            )
-
         word = context['word']
-        context['parts_of_speech'] = [part for part in parts_of_speech if getattr(word, part)]
+        context['parts_of_speech'] = word.get_parts_of_speech()
 
         return context
-
-    def get_object(self):
-        word = self.kwargs['word']
-
-        return get_object_or_404(Word, word=word)
 
 
 class WordCreateView(CreateView):
@@ -47,8 +30,3 @@ class WordUpdateView(UpdateView):
     form_class = WordUpdateForm
     template_name = 'dictionary/word_update.html'
     success_url = reverse_lazy('dictionary:main')
-
-    def get_object(self):
-        word = self.kwargs['word']
-
-        return get_object_or_404(Word, word=word)

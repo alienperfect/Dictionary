@@ -5,6 +5,8 @@ from crispy_forms.layout import Button, Div, Field, Submit
 
 
 class WordCreateForm(forms.ModelForm):
+    adjective = forms.CharField(widget=forms.Textarea(attrs={'size': 50}))
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
