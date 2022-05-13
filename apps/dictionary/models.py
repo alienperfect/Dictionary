@@ -23,7 +23,7 @@ class Word(models.Model):
         return self.word
 
     def get_absolute_url(self):
-        return reverse_lazy('dictionary:word-detail', kwargs={'word': self.word})
+        return reverse_lazy('dictionary:word-detail', kwargs={'pk': self.word})
 
     def get_parts_of_speech(self):
         PARTS_OF_SPEECH = (

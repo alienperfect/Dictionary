@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load dictionary_filters %}
+
+{% block title %}<title>Search</title>{% endblock %}
+
+{% block content %}
+    <h1>Result</h1>
+
+    {% if word_list %}
+        {% for word in word_list %}
+            <a href="{{ word.get_absolute_url }}">{{ word }}</a>
+        {% endfor %}
+    {% else %}
+        <h4>Couldn't find that word, oh.</h4>
+    {% endif %}
+{% endblock %}

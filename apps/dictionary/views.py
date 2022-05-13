@@ -3,7 +3,7 @@ from apps.dictionary.models import Word
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
 
 class WordDetailView(DetailView):
@@ -30,3 +30,14 @@ class WordUpdateView(UpdateView):
     form_class = WordUpdateForm
     template_name = 'dictionary/word_update.html'
     success_url = reverse_lazy('dictionary:main')
+
+
+class WordSearchView(ListView):
+    model = Word
+    template_name = 'dictionary/word_search_result.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        word_list = Word.objects.filter(word__iexact=query)
+
+        return word_list

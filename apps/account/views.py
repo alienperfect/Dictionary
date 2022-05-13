@@ -18,12 +18,12 @@ class SignUpView(CreateView):
         form.save()
         login(self.request, form.instance)
 
-        return HttpResponseRedirect(reverse_lazy('dictionary:main'))
+        return HttpResponseRedirect('/')
 
 
 class CustomLoginView(LoginView):
     template_name = 'account/login.html'
-    next_page = reverse_lazy('dictionary:main')
+    next_page = '/'
     redirect_authenticated_user = True
 
 

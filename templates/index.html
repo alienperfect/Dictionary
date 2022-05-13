@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Welcome</title>
+{% endblock %}
+
+{% block content %}
+<h1>Welcome to Dictionary!</h1>
+
+<div id="links" class="container">
+    <ul>
+        <li><a href="{% url 'dictionary:word-create' %}">New definition</a></li>
+        <li><a href="{% url 'account:signup' %}">Sign Up</a></li>
+        <li><a href="{% url 'account:login' %}">Log In</a></li>
+        <li><a href="{% url 'account:logout' %}">Log Out</a></li>
+    </ul>
+    
+</div>
+{% endblock %}

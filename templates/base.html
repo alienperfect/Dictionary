@@ -13,15 +13,34 @@
     {% block title %}<title>Document</title>{% endblock %}
 </head>
 
-<body style="padding-left: 15em; padding-right: 15em; padding-top: 1em; padding-bottom: 1em;">
-    <div class="d-flex justify-content-end">
-        {% if user.is_authenticated %}
-            {{ user.username }}
-        {% else %}
-            Not logged in
-        {% endif %}
-    </div>
+<body>
+    <nav class="py-2 bg-light border-bottom">
+        <div class="container d-flex flex-wrap">
+          <ul class="nav me-auto">
+            <li class="nav-item"><a href="#" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">About</a></li>
+          </ul>
+          <ul class="nav">
+            <form action="{% url 'dictionary:word-search' %}" class="col-12 col-lg-auto mb-3 mb-lg-0">
+                <input name="q" type="search" class="form-control" placeholder="Search definition" aria-label="Search">
+            </form>
 
-    {% block content %}{% endblock %}
+            {% if user.is_authenticated %}
+                <li class="nav-item" style="padding-left: 1em; line-height: 2.5em;">{{ user.username }}</li>
+            {% else %}
+                <li class="nav-item"><a href="{% url 'account:login' %}" class="nav-link link-dark px-2">Login</a></li>
+                <li class="nav-item"><a href="{% url 'account:signup' %}" class="nav-link link-dark px-2">Sign up</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+
+    
+    <div class="container" style="padding-left: 10em; padding-right: 10em; padding-top: 1em; padding-bottom: 1em;">
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>
