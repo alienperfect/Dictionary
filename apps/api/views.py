@@ -14,9 +14,9 @@ class WordAPIView(APIView):
         data = serializer.data
 
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            resp = [field for field in data if data[field]]
+            parts_of_speech = [field for field in data if data[field]]
  
-            return Response(resp[2::])
+            return Response(parts_of_speech)
 
         return Response(data)
 

@@ -12,9 +12,20 @@
 		{% endfor %}
 	</div>
 
-	<div>
+	<div id="form">
 		<form method="post">
-			{% crispy form %}
+			{% csrf_token %}
+			{{ form.word|as_crispy_field }}
+	
+			{% for field in form %}
+				{% if not forloop.first %}
+					<div id="{{ field.html_name }}" style="display: none">
+						{{ field|as_crispy_field }}
+					</div>
+				{% endif %}
+			{% endfor %}
+
+			<button type="submit" class="btn btn-primary" onclick="clearInput()">Save</button>
 		</form>
 	</div>
 {% endblock %}

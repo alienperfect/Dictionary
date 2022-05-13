@@ -12,9 +12,17 @@
 		{% endfor %}
 	</div>
 
-	<div>
+	<div id="form">
 		<form method="post">
-			{% crispy form %}
+			{% csrf_token %}
+
+			{% for field in form %}
+				<div id="{{ field.html_name }}" style="display: none">
+					{{ field|as_crispy_field }}
+				</div>
+			{% endfor %}
+
+			<button type="submit" class="btn btn-primary" onclick="clearInput()">Save</button>
 		</form>
 	</div>
 
@@ -30,7 +38,9 @@
 		.then(resp => resp.json())
 		.then(function(data){
 			for (let i = 0; i < data.length; i++){
+				
 				var field = data[i];
+				console.log(field)
 				addInput(field);
 			}
 		});

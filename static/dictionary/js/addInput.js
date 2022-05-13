@@ -1,5 +1,5 @@
 function addInput(field){
-	var div = document.getElementById('hide_' + field);
+	var div = document.getElementById(field);
     var button = document.getElementById('btn_' + field);
 
 	if (div.style.display === 'none'){

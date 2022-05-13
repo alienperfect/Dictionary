@@ -6,7 +6,7 @@ from rest_framework.serializers import ModelSerializer
 class WordSerializer(ModelSerializer):
     class Meta:
         model = Word
-        fields = '__all__'
+        exclude = ['word']
 
 
 class CollectionSerializer(ModelSerializer):
