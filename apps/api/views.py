@@ -11,7 +11,6 @@ class WordAPIView(APIView):
         word = kwargs.get('word', '')
         instance = Word.objects.get(word=word)
         serializer = WordSerializer(instance)
-        serializer.is_valid()
         data = serializer.data
 
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
