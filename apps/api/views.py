@@ -8,13 +8,12 @@ from rest_framework.views import APIView
 
 class WordAPIView(APIView):
     def get(self, request, format=None, **kwargs):
-        word = kwargs.get('word', '')
-        instance = Word.objects.get(word=word)
+        instance = Word.objects.get(word=kwargs.get('word', ''))
         serializer = WordSerializer(instance)
         data = serializer.data
 
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            parts_of_speech = [field for field in data if data[field]]
+            parts_of_speech = [field for field in data.keys() if data[field]]
  
             return Response(parts_of_speech)
 
