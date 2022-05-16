@@ -17,17 +17,13 @@
     <nav class="py-2 bg-light border-bottom">
         <div class="container d-flex flex-wrap">
           <ul class="nav me-auto">
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="/" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
             <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Features</a></li>
             <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Pricing</a></li>
             <li class="nav-item"><a href="#" class="nav-link link-dark px-2">FAQs</a></li>
             <li class="nav-item"><a href="#" class="nav-link link-dark px-2">About</a></li>
           </ul>
           <ul class="nav">
-            <form action="{% url 'dictionary:word-search' %}" class="col-12 col-lg-auto mb-3 mb-lg-0">
-                <input name="q" type="search" class="form-control" placeholder="Search definition" aria-label="Search">
-            </form>
-
             {% if user.is_authenticated %}
                 <li class="nav-item" style="padding-left: 1em; line-height: 2.5em;">{{ user.username }}</li>
             {% else %}
@@ -37,10 +33,29 @@
           </ul>
         </div>
       </nav>
+      <div class="d-flex justify-content-center" style="padding: 1em;">
+        <form action="{% url 'dictionary:word-search' %}" class="form-group" style="width: 25%">
+          <div class="input-group mb-3">
+            <input id="search-input" name="q" type="search" class="form-control" placeholder="Search definition" aria-label="Search">
+
+            <svg id="clear-input" style="padding-left: 0.15em;" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1.5em"preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M18.36 19.78L12 13.41l-6.36 6.37l-1.42-1.42L10.59 12L4.22 5.64l1.42-1.42L12 10.59l6.36-6.36l1.41 1.41L13.41 12l6.36 6.36z"/></svg>
+          </div>
+        </form>
+      </div>
 
     
     <div class="container" style="padding-left: 10em; padding-right: 10em; padding-top: 1em; padding-bottom: 1em;">
         {% block content %}{% endblock %}
     </div>
+
+    <script>
+      function clearValue(){
+        input.value = '';
+      }
+
+      var clear = document.getElementById('clear-input');
+      var input = document.getElementById('search-input');
+      clear.addEventListener("click", clearValue);
+    </script>
 </body>
 </html>
