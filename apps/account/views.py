@@ -68,3 +68,7 @@ class CollectionDetailView(DetailView):
         context['words'] = Word.objects.filter(collection=instance)
 
         return context
+
+
+def collection_delete_redirect(request, **kwargs):
+    return HttpResponseRedirect(reverse_lazy('account:collection-list'))

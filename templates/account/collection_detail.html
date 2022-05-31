@@ -21,11 +21,11 @@
 	</div>
 
     <script>
-        var url = "{% url 'api:collection' pk=collection.pk %}";
-        var redirect_url = "{% url 'account:collection-list' %}"
+        var url = "{% url 'api:collection' pk=collection.pk %}"
+        var redirect = "{% url 'account:collection-delete' %}";
 
         function deleteCollection(){
-            if (window.confirm("Do you really want to delete the collection forever?")){
+            if (window.confirm("Do you really want to delete the collection?")){
                 fetch(url, {
                     method: 'DELETE',
                     headers: {
@@ -33,7 +33,7 @@
 			        }
                 })
                 .then(function(){
-                    window.location.replace(redirect_url)
+                    window.location.replace(redirect)
                 });
             }
         }
