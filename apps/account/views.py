@@ -2,9 +2,10 @@ from apps.account.forms import CollectionCreateForm, CollectionUpdateForm
 from apps.account.models import Collection
 from apps.dictionary.models import Word
 from django.contrib.auth import login, get_user
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
 
@@ -57,16 +58,28 @@ class CollectionListView(ListView):
     context_object_name = 'collections'
     ordering = ['name']
 
+    def get_queryset(self):
+        return Collection.objects.filter(user=self.request.user)
+
 
 class CollectionDetailView(DetailView):
     model = Collection
     template_name = 'account/collection_detail.html'
 
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk', '')
+        try:
+            user = Collection.objects.get(pk=pk).user
+            if user != get_user(request):
+                raise Http404()
+        except ObjectDoesNotExist:
+            raise Http404()
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         instance = context.get('object')
         context['words'] = Word.objects.filter(collection=instance)
-
         return context
 
 

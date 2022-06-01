@@ -14,18 +14,18 @@
                 <button class="btn btn-danger" onclick="deleteCollection()">Delete</button>
             </div>
         </div>
-
-        {% for word in words %}
-            <p><a href="{{ word.get_absolute_url }}">{{ word.word }}</a></p>
-        {% endfor %}
+        {% if words %}
+            {% for word in words %}
+                <p><a href="{{ word.get_absolute_url }}">{{ word.word }}</a></p>
+            {% endfor %}
+        {% endif %}
 	</div>
 
     <script>
-        var url = "{% url 'api:collection' pk=collection.pk %}"
-        var redirect = "{% url 'account:collection-delete' %}";
-
         function deleteCollection(){
             if (window.confirm("Do you really want to delete the collection?")){
+                var url = "{% url 'api:collection' pk=collection.pk %}";
+                var redirect = "{% url 'account:collection-delete' %}";
                 fetch(url, {
                     method: 'DELETE',
                     headers: {
