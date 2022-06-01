@@ -28,6 +28,18 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
 
+class AccessMixin:
+    def dispatch(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', '')
+        try:
+            user = self.model.objects.get(pk=pk).user
+            if user != get_user(request):
+                raise
+        except Exception:
+            return HttpResponseRedirect('/')
+        return super().dispatch(request, *args, **kwargs)
+
+
 class CollectionCreateView(CreateView):
     model = Collection
     form_class = CollectionCreateForm
@@ -40,7 +52,7 @@ class CollectionCreateView(CreateView):
         return super().form_valid(form)
 
 
-class CollectionUpdateView(UpdateView):
+class CollectionUpdateView(AccessMixin, UpdateView):
     model = Collection
     form_class = CollectionUpdateForm
     template_name = 'account/collection_update.html'
@@ -62,19 +74,9 @@ class CollectionListView(ListView):
         return Collection.objects.filter(user=self.request.user)
 
 
-class CollectionDetailView(DetailView):
+class CollectionDetailView(AccessMixin, DetailView):
     model = Collection
     template_name = 'account/collection_detail.html'
-
-    def get(self, request, *args, **kwargs):
-        pk = self.kwargs.get('pk', '')
-        try:
-            user = Collection.objects.get(pk=pk).user
-            if user != get_user(request):
-                raise Http404()
-        except ObjectDoesNotExist:
-            raise Http404()
-        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
